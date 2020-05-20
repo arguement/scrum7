@@ -1,0 +1,68 @@
+---
+title: "Scrum_6_7"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(magrittr)
+library(dataQualityR)
+
+
+bank = read.csv("C:\\Users\\Jordan Williams\\Downloads\\BankLoan Dataset 2020.csv")
+
+checkDataQuality(bank,out.file.num = "first.csv",out.file.cat = "second.csv")
+summary(bank)
+```
+```{r}
+bank[is.na(bank$age),]
+
+bank = bank[!is.na(bank$age),]
+
+```
+```{r}
+summary(bank$job)
+levels(bank$job)
+
+bank$job = as.character(bank$job)
+bank = bank[!bank$job == "",]
+
+
+bank$job = as.factor(bank$job)
+
+```
+```{r}
+bank$marital = bank$marital %>% as.character() %>% as.factor()
+```
+
+```{r}
+bank$education = bank$education %>% as.character()
+
+bank = bank[!bank$education == "",]
+bank$education = bank$education %>% as.factor()
+```
+
+```{r}
+bank$date = as.Date(bank$date,"%m/%d/%Y")
+```
+
+```{r}
+bank[is.na(bank$deposit),]
+
+bank = bank[!is.na(bank$deposit),]
+
+
+
+bank = bank[!is.na(bank$balance),]
+```
+
+
+
+
+
+
+
+
