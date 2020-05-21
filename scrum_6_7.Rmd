@@ -59,6 +59,14 @@ bank = bank[!is.na(bank$deposit),]
 bank = bank[!is.na(bank$balance),]
 ```
 
+```{r}
+bank$contacted = mapply(function(q,c) ifelse(is.na(c),q,c), q=bank$qualified, c = bank$contacted)
+```
+
+```{r}
+# bank$loanvalue[is.na(bank$loanvalue)] = mean(bank$loanvalue,na.rm = T)
+bank$loanvalue =  mapply(function(p,lv) ifelse(is.na(lv),mean(bank$loanvalue[bank$product == p],na.rm = T),lv), p=bank$product, lv = bank$loanvalue)
+```
 
 
 
