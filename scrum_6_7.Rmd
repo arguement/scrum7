@@ -71,7 +71,7 @@ bank$loanvalue =  mapply(function(p,lv) ifelse(is.na(lv),mean(bank$loanvalue[ban
 ```{r}
 # write cleaned data to CSV
 banks$NPS = NULL
-write.csv(bank, "BankLoan-Cleaned Dataset.csv")
+write.csv(bank, "BankLoan-Cleaned Dataset.csv", row.names = F)
 ```
 
 
