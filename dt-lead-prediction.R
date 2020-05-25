@@ -42,11 +42,17 @@ DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
                   parms = list(split="information gain"),
                   control = rpart.control(minsplit = 10, maxdepth = 4))
 
-# more developed tree with more decisions: pred acc is %
+# more developed tree with more decisions: pred acc is 67.7%
 DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
                   data = trainData,
                   parms = list(split="information gain"),
                   control = rpart.control(minsplit = 5, maxdepth = 6))
+
+# more developed tree with more decisions: pred acc is 67.7%
+DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
+                  data = trainData,
+                  parms = list(split="information gain"),
+                  control = rpart.control(minsplit = 5, maxdepth = 8))
 
 # ignore education & job: pred accuracy is 68.1%
 DTModel1 <- rpart(lead ~ age+marital+deposit+balance,
