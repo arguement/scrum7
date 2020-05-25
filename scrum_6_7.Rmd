@@ -12,7 +12,7 @@ library(magrittr)
 library(dataQualityR)
 
 
-bank = read.csv("C:\\Users\\Jordan Williams\\Downloads\\BankLoan Dataset 2020.csv")
+bank = read.csv("BankLoan Dataset 2020.csv")
 
 checkDataQuality(bank,out.file.num = "first.csv",out.file.cat = "second.csv")
 summary(bank)
@@ -66,6 +66,12 @@ bank$contacted = mapply(function(q,c) ifelse(is.na(c),q,c), q=bank$qualified, c 
 ```{r}
 # bank$loanvalue[is.na(bank$loanvalue)] = mean(bank$loanvalue,na.rm = T)
 bank$loanvalue =  mapply(function(p,lv) ifelse(is.na(lv),mean(bank$loanvalue[bank$product == p],na.rm = T),lv), p=bank$product, lv = bank$loanvalue)
+```
+
+```{r}
+# write cleaned data to CSV
+banks$NPS = NULL
+write.csv(bank, "BankLoan-Cleaned Dataset.csv")
 ```
 
 
