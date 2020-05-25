@@ -30,10 +30,29 @@ testData = bank[!dset,]
 
 ### BUILD THE MODEL - Fit a DT using Training Data
 
+# This model has only one node as the answer: a class of 1: pred acc is 68.8%
 DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
                   data = trainData,
                   parms = list(split="information gain"),
                   control = rpart.control(minsplit = 100, maxdepth = 4))
+
+# more developed tree with more decisions: pred acc is 66.1%
+DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
+                  data = trainData,
+                  parms = list(split="information gain"),
+                  control = rpart.control(minsplit = 10, maxdepth = 4))
+
+# more developed tree with more decisions: pred acc is %
+DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
+                  data = trainData,
+                  parms = list(split="information gain"),
+                  control = rpart.control(minsplit = 5, maxdepth = 6))
+
+# ignore education & job: pred accuracy is 68.1%
+DTModel1 <- rpart(lead ~ age+marital+deposit+balance,
+                  data = trainData,
+                  parms = list(split="information gain"),
+                  control = rpart.control(minsplit = 10, maxdepth = 4))
 
 rpart.plot(DTModel1, type=3, extra=101, fallen.leaves = F, cex = 0.7)
 rpart.plot(DTModel1, type=3, extra=104, fallen.leaves = F, cex = 0.7)
