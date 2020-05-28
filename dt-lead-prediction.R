@@ -37,28 +37,34 @@ DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
                   control = rpart.control(minsplit = 100, maxdepth = 4))
 
 # more developed tree with more decisions: pred acc is 66.1%
-DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
-                  data = trainData,
-                  parms = list(split="information gain"),
-                  control = rpart.control(minsplit = 10, maxdepth = 4))
+# DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
+#                   data = trainData,
+#                   parms = list(split="information gain"),
+#                   control = rpart.control(minsplit = 10, maxdepth = 4))
 
 # more developed tree with more decisions: pred acc is 67.7%
-DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
-                  data = trainData,
-                  parms = list(split="information gain"),
-                  control = rpart.control(minsplit = 5, maxdepth = 6))
+# DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
+#                   data = trainData,
+#                   parms = list(split="information gain"),
+#                   control = rpart.control(minsplit = 5, maxdepth = 6))
 
 # more developed tree with more decisions: pred acc is 67.7%
-DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
-                  data = trainData,
-                  parms = list(split="information gain"),
-                  control = rpart.control(minsplit = 5, maxdepth = 8))
+# DTModel1 <- rpart(lead ~ education+age+marital+job+deposit+balance,
+#                   data = trainData,
+#                   parms = list(split="information gain"),
+#                   control = rpart.control(minsplit = 5, maxdepth = 8))
 
-# ignore education & job: pred accuracy is 68.1%
+# ignore education & job: pred accuracy is 66.9% - Using this Model
+# DTModel1 <- rpart(lead ~ age+marital+deposit+balance,
+#                   data = trainData,
+#                   parms = list(split="information gain"),
+#                   control = rpart.control(minsplit = 10, maxdepth = 4))
+
+# ignore education & job: pred accuracy is 67.7% - Using this Model
 DTModel1 <- rpart(lead ~ age+marital+deposit+balance,
                   data = trainData,
                   parms = list(split="information gain"),
-                  control = rpart.control(minsplit = 10, maxdepth = 4))
+                  control = rpart.control(minsplit = 5, maxdepth = 5))
 
 rpart.plot(DTModel1, type=3, extra=101, fallen.leaves = F, cex = 0.7)
 rpart.plot(DTModel1, type=3, extra=104, fallen.leaves = F, cex = 0.7)
@@ -86,8 +92,12 @@ ROC = roc(actualTest, probTest[,2],
           plot=TRUE, auc.polygon=TRUE, max.auc.polygon=T, grid=F,
           print.auc=TRUE, show.thres=T)
 
-plot(ROC, col="blue")
+# plot(ROC, col="blue")
 
 
 AUC = auc(ROC)
 AUC
+
+# Notable functions
+# unname(predict(DTModel1, testData[2,c("age", "marital", "deposit", "balance")], type="class"))
+
