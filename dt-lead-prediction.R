@@ -68,7 +68,7 @@ actualTest = testData$lead
 predTest <- predict(DTModel1, testData, type = "class")
 probTest <- predict(DTModel1, testData, type = "prob")
 
-View(predTest, "Class Predictions")
+# View(predTest, "Class Predictions")
 
 # Accuracy:
 tl = table(predictions = predTest, actual = actualTest)
@@ -78,7 +78,16 @@ acc = sum(diag(tl)/sum(tl))
 print(acc)
 
 ### ROC & Area Under the Curve - Sensitivity
-ROC = roc(actualTest, probTest[,2])
+ROC = roc(actualTest, probTest[,2],
+          smoothed = TRUE,
+          # arguments for ci
+          # ci=TRUE, ci.alpha=0.9, stratified=FALSE,
+          # arguments for plot
+          plot=TRUE, auc.polygon=TRUE, max.auc.polygon=T, grid=F,
+          print.auc=TRUE, show.thres=T)
+
 plot(ROC, col="blue")
+
+
 AUC = auc(ROC)
 AUC
